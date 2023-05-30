@@ -1,0 +1,42 @@
+---
+- name: General config
+  hosts: reg_host
+  become: true
+  roles:
+    - docker
+    - general
+  tasks:
+    - name: Deploy registry
+      community.general.docker_container:
+        name: reg
+        image: "{{ registry_image }}"
+        state: started
+        restart_policy: unless-stopped
+        ports:
+          - 5000:5000
+          - 5001:5001
+        volumes:
+          - "{{ nfs_dst }}:/var/lib/registry"
+        env:
+          REGISTRY_STORAGE_DELETE_ENABLED: "true"
+          REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: "/var/lib/registry"
+          REGISTRY_HTTP_RELATIVEURLS: "true"
+          REGISTRY_HTTP_ADDR: ":5000"
+          REGISTRY_HTTP_DEBUG_ADDR: ":5001"
+          REGISTRY_HTTP_DEBUG_PROMETHEUS_ENABLED: "true"
+          REGISTRY_HTTP_DEBUG_PROMETHEUS_PATH: "/metrics"
+          REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin: '["*"]'
+
+    - name: Deploy registry ui
+      community.general.docker_container:
+        name: ui
+        image: "{{ registry_ui_image }}"
+        state: started
+        restart_policy: unless-stopped
+        ports:
+          - 80:80
+        env:
+          NGINX_PROXY_PASS_URL: "http://{{ registry_addr }}"
+          REGISTRY_TITLE: "SLAB Registry"
+          DELETE_IMAGES: "true"
+          CATALOG_ELEMENTS_LIMIT: "1000"

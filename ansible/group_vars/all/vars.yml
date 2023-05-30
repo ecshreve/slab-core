@@ -1,0 +1,9 @@
+---
+  docker_pkg: "docker-ce=5:23.0.1-1~ubuntu.20.04~focal"
+  registry_ui_image: "joxit/docker-registry-ui:2.4"
+  registry_image: "registry:2.8.2"
+  docker_user: "{{ vault_docker_user }}"
+  nfs_src: "{{ vault_nfs_src }}"
+  nfs_dst: "{{ vault_nfs_dst }}"
+  registry_addr: "{{ vault_registry_addr }}"
+  registry_host_ip: "{{ vault_registry_host_ip }}"
