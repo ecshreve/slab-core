@@ -34,4 +34,6 @@ this repo contains terraform and ansible code to set up a private docker registr
 
 ## dev environment
 
-using a devcontainer built from custom image https://github.com/ecshreve/dev-env
+macbook pro -> vscode - insiders ---> remote ssh -- ubuntu vm --> docker --> devcontainer
+
+using a devcontainer built from docker image on private dockerhub repo

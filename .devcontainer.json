@@ -1,6 +1,6 @@
 {
 	"name": "corebox",
-	"image": "reg.slab.lan:5000/devbox-dotfiles:packer",
+	"image": "ecshreve/devbox-pub",
 	"features": {
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
 	},
