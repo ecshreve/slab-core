@@ -21,7 +21,7 @@ module "srv" {
   source = "app.terraform.io/slablan/ubuntu-vm/proxmox"
 
   name = "docker-registry"
-  vmid = 6201
+  vmid = 5000
 
   bridge          = var.bridge
   gateway_address = var.gw
